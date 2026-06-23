@@ -1,5 +1,7 @@
 import { cloudinaryUploader } from "../../common/utils/cloudinary.js";
+import { sendEmail } from "../../common/utils/resend-email.js";
 import { User } from "../../db/models.js";
+import fs from "node:fs";
 
 export const uploadFile = async (req, res) => {
   try {
@@ -18,6 +20,10 @@ export const uploadFile = async (req, res) => {
     });
 
     await newImage.save();
+
+    fs.unlinkSync(localPath);
+
+    sendEmail();
 
     res.json({
       url: secureURL,
