@@ -6,8 +6,6 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-export const cloudinaryUploader = (localPath) => {
-  cloudinary.uploader
-    .upload(localPath)
-    .then((result) => console.log(result));
+export const cloudinaryUploader = async (uploadURL) => {
+  return cloudinary.uploader.upload(uploadURL);
 };

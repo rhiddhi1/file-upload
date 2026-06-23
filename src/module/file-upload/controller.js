@@ -3,10 +3,13 @@ import { User } from "../../db/models.js";
 
 export const uploadFile = async (req, res) => {
   try {
+    if (!req.file) {
+      return res.status(400).json({ error: "No file uploaded" });
+    }
+
     const localPath = req.file.path;
     const result = await cloudinaryUploader(localPath);
-    console.log(result.secure_url);
-    const secureURL = result.secureURL;
+    const secureURL = result.secure_url;
 
     const newImage = new User({
       name: req.body.name,
@@ -16,8 +19,13 @@ export const uploadFile = async (req, res) => {
 
     await newImage.save();
 
-    res.json({ url: result.secure_url, raw: result });
+    res.json({
+      url: secureURL,
+      raw: result,
+      message: "Image received",
+    });
   } catch (error) {
     console.log(error);
+    res.status(500).json({ error: "Upload failed" });
   }
 };

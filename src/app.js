@@ -7,7 +7,7 @@ export const createApplication = () => {
 
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
-  app.use("/fileUpload", fileUpload);
+  app.use("/upload", fileUpload);
 
   return app;
 };
