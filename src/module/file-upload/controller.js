@@ -23,7 +23,7 @@ export const uploadFile = async (req, res) => {
 
     fs.unlinkSync(localPath);
 
-    sendEmail();
+    await sendEmail({ imageUrl: secureURL });
 
     res.json({
       url: secureURL,
