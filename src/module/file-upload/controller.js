@@ -1,6 +1,6 @@
 import { cloudinaryUploader } from "../../common/utils/cloudinary.js";
 import { sendEmail } from "../../common/utils/resend-email.js";
-import { User } from "../../db/models.js";
+import { User } from "./models.js";
 import fs from "node:fs";
 
 export const uploadFile = async (req, res) => {
